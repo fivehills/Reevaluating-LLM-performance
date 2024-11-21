@@ -1,0 +1,411 @@
+
+##GAMM fittings
+
+ar1 <- bam(log_ARC~ s(log_HellaSwag)+s(log_MMLU)+s(log_Winogrande)+s(log_GSM8K)+s(log_TruthfulQA)+s(log_Param) + s(Architecture, bs="re"), data=df2, discrete=T)
+
+he1=bam(log_HellaSwag~ s(log_Param)+s(log_ARC)+ s(log_MMLU)+s(log_Winogrande)+s(log_GSM8K)+s(log_TruthfulQA)+ s(Architecture, bs="re"), data=df2, discrete=T)
+
+
+mu1 <- bam(log_MMLU~ s(log_ARC)+ s(log_HellaSwag)+s(log_Winogrande)+s(log_GSM8K)+s(log_TruthfulQA)+s(log_Param) + s(Architecture, bs="re"), data=df2, discrete=T)
+wi1 <- bam(log_Winogrande~ s(log_ARC)+ s(log_HellaSwag)+s(log_MMLU)+s(log_GSM8K)+s(log_TruthfulQA)+s(log_Param) + s(Architecture, bs="re"), data=df2, discrete=T)
+gs1 <- bam(log_GSM8K~ s(log_ARC)+ s(log_HellaSwag)+s(log_MMLU)+s(log_Winogrande)+s(log_TruthfulQA)+s(log_Param) + s(Architecture, bs="re"), data=df2, discrete=T)
+
+tq1 <- bam(log_TruthfulQA~ s(log_ARC)+ s(log_HellaSwag)+s(log_MMLU)+s(log_Winogrande)+s(log_GSM8K)+s(log_Param) + s(Architecture, bs="re"), data=df2, discrete=T)
+
+
+## Results
+
+> summary(ar1)
+
+Family: gaussian 
+Link function: identity 
+
+Formula:
+log_ARC ~ s(log_HellaSwag) + s(log_MMLU) + s(log_Winogrande) + 
+    s(log_GSM8K) + s(log_TruthfulQA) + s(log_Param) + s(Architecture, 
+    bs = "re")
+
+Parametric coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 3.704224   0.009121   406.1   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+                     edf Ref.df       F  p-value    
+s(log_HellaSwag)   7.071  8.101 163.539  < 2e-16 ***
+s(log_MMLU)        5.332  6.506  22.533  < 2e-16 ***
+s(log_Winogrande)  1.410  1.727  32.919  < 2e-16 ***
+s(log_GSM8K)       1.000  1.000   0.663    0.416    
+s(log_TruthfulQA)  3.224  4.087   6.321 5.51e-05 ***
+s(log_Param)       4.723  5.874   9.292  < 2e-16 ***
+s(Architecture)   12.836 21.000   2.901  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-sq.(adj) =  0.952   Deviance explained = 95.4%
+fREML =  -1211  Scale est. = 0.0034735  n = 905
+> summary(he1)
+
+Family: gaussian 
+Link function: identity 
+
+Formula:
+log_HellaSwag ~ s(log_Param) + s(log_ARC) + s(log_MMLU) + s(log_Winogrande) + 
+    s(log_GSM8K) + s(log_TruthfulQA) + s(Architecture, bs = "re")
+
+Parametric coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 4.047784   0.009588   422.2   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+                    edf Ref.df       F p-value    
+s(log_Param)      7.605  8.464  19.264 < 2e-16 ***
+s(log_ARC)        7.563  8.481 136.140 < 2e-16 ***
+s(log_MMLU)       6.607  7.744  11.784 < 2e-16 ***
+s(log_Winogrande) 6.172  7.366  11.838 < 2e-16 ***
+s(log_GSM8K)      4.834  5.862  10.241 < 2e-16 ***
+s(log_TruthfulQA) 4.224  5.283  26.439 < 2e-16 ***
+s(Architecture)   9.694 21.000   1.149 0.00127 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-sq.(adj) =  0.934   Deviance explained = 93.8%
+fREML = -958.32  Scale est. = 0.0058544  n = 905
+> summary(mu1)
+
+Family: gaussian 
+Link function: identity 
+
+Formula:
+log_MMLU ~ s(log_ARC) + s(log_HellaSwag) + s(log_Winogrande) + 
+    s(log_GSM8K) + s(log_TruthfulQA) + s(log_Param) + s(Architecture, 
+    bs = "re")
+
+Parametric coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  3.53512    0.02056   171.9   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+                     edf Ref.df      F  p-value    
+s(log_ARC)         5.603  6.798 19.234  < 2e-16 ***
+s(log_HellaSwag)   3.534  4.462  9.652  < 2e-16 ***
+s(log_Winogrande)  7.165  8.195  5.661 5.66e-07 ***
+s(log_GSM8K)       4.200  5.168 17.213  < 2e-16 ***
+s(log_TruthfulQA)  1.684  2.127 46.272  < 2e-16 ***
+s(log_Param)       7.619  8.469  5.034 2.69e-06 ***
+s(Architecture)   13.946 21.000  4.645  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-sq.(adj) =  0.834   Deviance explained = 84.2%
+fREML = -583.49  Scale est. = 0.013645  n = 905
+> summary(wi1)
+
+Family: gaussian 
+Link function: identity 
+
+Formula:
+log_Winogrande ~ s(log_ARC) + s(log_HellaSwag) + s(log_MMLU) + 
+    s(log_GSM8K) + s(log_TruthfulQA) + s(log_Param) + s(Architecture, 
+    bs = "re")
+
+Parametric coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 4.163169   0.006004   693.4   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+                     edf Ref.df      F p-value    
+s(log_ARC)         5.263  6.504 11.431 < 2e-16 ***
+s(log_HellaSwag)   8.662  8.950 51.028 < 2e-16 ***
+s(log_MMLU)        1.000  1.000  0.390 0.53261    
+s(log_GSM8K)       2.840  3.585 23.149 < 2e-16 ***
+s(log_TruthfulQA)  1.000  1.000 10.473 0.00126 ** 
+s(log_Param)       3.238  4.122 27.255 < 2e-16 ***
+s(Architecture)   13.369 21.000  4.111 < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-sq.(adj) =  0.905   Deviance explained = 90.9%
+fREML = -1633.3  Scale est. = 0.0013384  n = 905
+> summary(gs1)
+
+Family: gaussian 
+Link function: identity 
+
+Formula:
+log_GSM8K ~ s(log_ARC) + s(log_HellaSwag) + s(log_MMLU) + s(log_MMLU) + 
+    s(log_TruthfulQA) + s(log_Param) + s(Architecture, bs = "re")
+
+Parametric coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   0.4377     0.1303   3.359 0.000815 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+                     edf Ref.df      F  p-value    
+s(log_ARC)         6.040  7.192  7.176  < 2e-16 ***
+s(log_HellaSwag)   1.981  2.482 11.028 4.16e-06 ***
+s(log_MMLU)        7.061  8.123  8.044  < 2e-16 ***
+s(log_TruthfulQA)  3.317  4.196  1.613    0.169    
+s(log_Param)       2.638  3.373 17.165  < 2e-16 ***
+s(Architecture)   12.168 21.000  2.941  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-sq.(adj) =  0.563   Deviance explained = 57.9%
+fREML = 1261.6  Scale est. = 0.86482   n = 905
+> summary(tq1)
+
+Family: gaussian 
+Link function: identity 
+
+Formula:
+log_TruthfulQA ~ s(log_ARC) + s(log_HellaSwag) + s(log_MMLU) + 
+    s(log_Winogrande) + s(log_GSM8K) + s(log_Param) + s(Architecture, 
+    bs = "re")
+
+Parametric coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  3.69978    0.01133   326.5   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Approximate significance of smooth terms:
+                     edf Ref.df      F  p-value    
+s(log_ARC)         4.152  5.215 10.271  < 2e-16 ***
+s(log_HellaSwag)   5.340  6.495 23.308  < 2e-16 ***
+s(log_MMLU)        5.878  7.064 21.266  < 2e-16 ***
+s(log_Winogrande)  4.742  5.891  6.626 1.46e-06 ***
+s(log_GSM8K)       1.000  1.000  0.427   0.5137    
+s(log_Param)       2.581  3.295  2.542   0.0512 .  
+s(Architecture)   11.484 21.000  3.156  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+R-sq.(adj) =  0.536   Deviance explained = 55.4%
+fREML = -936.9  Scale est. = 0.0064527  n = 905
+
+
+###plot
+
+
+plot_with_annotation <- function(model, select, p_value, xlab, ylab) {
+  # Plot the model with the given selection
+  plot(model, select=select, rug=T, xlab=xlab, ylab=ylab, lwd=1.2, shade=T, shade.col = "steelblue2", font.lab=2)
+  abline(h=0, col="indianred")
+  
+  # Calculate middle top position for the p-value text
+  x_mid <- mean(par("usr")[1:2])
+  y_top <- par("usr")[4] - (par("usr")[4] - par("usr")[3]) * 0.05  # Slightly below the top
+  
+  # Add p-value text in green color with consistent formatting
+ # formatted_p_value <- sprintf("%.4f", p_value)  # Format to 4 decimal places
+  text(x_mid, y_top, labels = paste("p-value:", p_value), cex = 1.2, col = "red")
+}
+
+
+
+setEPS()
+postscript("cor_eff.V1a.eps", wi=15, he=14)
+par(mfrow=c(4,5), cex=0.8)
+
+# Assuming you have an array or list of p-values corresponding to each plot
+p_values <- c(0, 0, 0, 0.4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.07, 0, 0, 0,0, 0.5)  # Example p-values
+
+# Call the function for each plot
+plot_with_annotation(ar1, 1, p_values[1], "log_ARC ", "log_HellaSwag (partial effects)")
+plot_with_annotation(ar1, 2, p_values[2],  "log_ARC", "log_MMLU")
+plot_with_annotation(ar1, 3, p_values[3],  "log_ARC", "log_Winogrande")
+plot_with_annotation(ar1, 4, p_values[4],  "log_ARC", "log_GSM8K")
+plot_with_annotation(ar1, 5, p_values[5],  "log_ARC", "log_GSM8K")
+# ... continue for all plots
+plot_with_annotation(mu1, 2, p_values[6], "log_MMLU", "log_ARC (partial effects)")
+plot_with_annotation(mu1, 3, p_values[7], "log_MMLU", "log_HellaSwag")
+plot_with_annotation(mu1, 4, p_values[8], "log_MMLU", "log_Winogrande")
+plot_with_annotation(mu1, 5, p_values[9], "log_MMLU", "log_GSM8K")
+plot_with_annotation(mu1, 1, p_values[10], "log_MMLU", "log_TruthfulQA")
+
+# Call the function for each plot
+plot_with_annotation(gs1, 1, p_values[1], "log_GSM8K ", "log_ARC (partial effects)")
+plot_with_annotation(gs1, 2, p_values[2],  "log_GSM8K", "log_HellaSwag")
+plot_with_annotation(gs1, 3, p_values[3],  "log_GSM8K", "log_MMLU")
+plot_with_annotation(gs1, 4, p_values[4],  "log_GSM8K", "log_Winogrande")
+plot_with_annotation(gs1, 5, p_values[5],  "log_GSM8K", "log_TruthfulQA")
+##
+plot_with_annotation(tq1, 2, p_values[11], "log_TruthfulQA", "log_ARC (partial effects)")
+plot_with_annotation(tq1, 3, p_values[12], "log_TruthfulQA", "log_HellaSwag")
+plot_with_annotation(tq1, 4, p_values[13], "log_TruthfulQA", "log_MMLU")
+plot_with_annotation(tq1, 5, p_values[14], "log_TruthfulQA", "log_Winogrande")
+plot_with_annotation(tq1, 1, p_values[15], "log_TruthfulQA", "log_GSM8K")
+
+dev.off()
+##
+
+
+###plot
+
+
+
+
+plot_with_annotation <- function(model, select, p_value, xlab, ylab) {
+  # Plot the model with the given selection
+  plot(model, select=select, rug=T, xlab=xlab, ylab=ylab, lwd=1.2, shade=T, shade.col = "steelblue2", font.lab=2)
+  abline(h=0, col="indianred")
+  
+  # Calculate middle top position for the p-value text
+  x_mid <- mean(par("usr")[1:2])
+  y_top <- par("usr")[4] - (par("usr")[4] - par("usr")[3]) * 0.05  # Slightly below the top
+  
+  # Add p-value text in green color with consistent formatting
+ # formatted_p_value <- sprintf("%.4f", p_value)  # Format to 4 decimal places
+  text(x_mid, y_top, labels = paste("p-value:", p_value), cex = 1.2, col = "red")
+}
+
+
+
+setEPS()
+postscript("cor_eff_all.V1.eps", wi=15, he=21)
+par(mfrow=c(6,5), cex=0.8)
+
+# Assuming you have an array or list of p-values corresponding to each plot
+p_values <- c(0, 0, 0, 0.4, 0, 0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0.5, 0, 0.001, 0, 0, 0, 0, 0.08, 0, 0, 0, 0, 0.5 )  # Example p-values
+
+# Call the function for each plot
+plot_with_annotation(ar1, 1, p_values[1], "log_ARC  ", "log_HellaSwag(partial effects)")
+plot_with_annotation(ar1, 2, p_values[2],  "log_ARC", "log_MMLU")
+plot_with_annotation(ar1, 3, p_values[3],  "log_ARC", "log_Winogrande")
+plot_with_annotation(ar1, 4, p_values[4],  "log_ARC", "log_GSM8K")
+plot_with_annotation(ar1, 5, p_values[5],  "log_ARC", "log_TruthfulQA")
+
+# Call the function for each plot
+plot_with_annotation(he1, 2, p_values[1], "log_HellaSwag ", "log_ARC (partial effects)")
+plot_with_annotation(he1, 3, p_values[2],  "log_HellaSwag", "log_MMLU")
+plot_with_annotation(he1, 4, p_values[3],  "log_HellaSwag", "log_Winogrande")
+plot_with_annotation(he1, 5, p_values[4],  "log_HellaSwag", "log_GSM8K")
+plot_with_annotation(he1, 6, p_values[5],  "HellaSwagC", "log_TruthfulQA")
+# ... continue for all plots
+plot_with_annotation(mu1, 2, p_values[6], "log_MMLU ", "log_ARC (partial effects)")
+plot_with_annotation(mu1, 3, p_values[7], "log_MMLU", "log_HellaSwag")
+plot_with_annotation(mu1, 4, p_values[8], "log_MMLU", "log_Winogrande")
+plot_with_annotation(mu1, 5, p_values[9], "log_MMLU", "log_GSM8K")
+plot_with_annotation(mu1, 1, p_values[10], "log_MMLU", "log_TruthfulQA")
+
+# Call the function for each plot
+plot_with_annotation(wi1, 1, p_values[1], "log_Winogrande ", "log_ARC (partial effects)")
+plot_with_annotation(wi1, 2, p_values[2],  "log_Winogrande", "log_HellaSwag")
+plot_with_annotation(wi1, 3, p_values[3],  "log_Winogrande", "log_MMLU")
+plot_with_annotation(wi1, 4, p_values[4],  "log_Winogrande", "log_GSM8K")
+plot_with_annotation(wi1, 5, p_values[5],  "log_Winogrande", "log_TruthfulQA")
+
+# Call the function for each plot
+plot_with_annotation(gs1, 1, p_values[1], "log_GSM8K ", "log_ARC (partial effects)")
+plot_with_annotation(gs1, 2, p_values[2],  "log_GSM8K", "log_HellaSwag")
+plot_with_annotation(gs1, 3, p_values[3],  "log_GSM8K", "log_MMLU")
+plot_with_annotation(gs1, 4, p_values[4],  "log_GSM8K", "log_Winogrande")
+plot_with_annotation(gs1, 5, p_values[5],  "log_GSM8K", "log_TruthfulQA")
+##
+plot_with_annotation(tq1, 2, p_values[11], "log_TruthfulQA ", "log_ARC (partial effects)")
+plot_with_annotation(tq1, 3, p_values[12], "log_TruthfulQA", "log_HellaSwag")
+plot_with_annotation(tq1, 4, p_values[13], "log_TruthfulQA", "log_MMLU")
+plot_with_annotation(tq1, 5, p_values[14], "log_TruthfulQA", "log_Winogrande")
+plot_with_annotation(tq1, 1, p_values[15], "log_TruthfulQA", "log_GSM8K")
+
+dev.off()
+##
+
+
+#####
+##########################################################################################
+plot with scaled data
+##################################################################################################
+
+
+ ar1a <- bam(log_ARC_sc1~ s(log_HellaSwag_sc1)+s(log_MMLU_sc1)+s(log_Winogrande_sc1)+s(log_GSM8K_sc1)+s(log_TruthfulQA_sc1)+s(log_Param) + s(Architecture, bs="re"), data=df2, discrete=T)
+
+he1a=bam(log_HellaSwag_sc1~ s(log_Param)+s(log_ARC)+ s(log_MMLU_sc1)+s(log_Winogrande_sc1)+s(log_GSM8K_sc1)+s(log_TruthfulQA_sc1)+ s(Architecture, bs="re"), data=df2, discrete=T)
+
+
+mu1a <- bam(log_MMLU_sc1~ s(log_ARC_sc1)+ s(log_HellaSwag_sc1)+s(log_Winogrande_sc1)+s(log_GSM8K_sc1)+s(log_TruthfulQA_sc1)+s(log_Param) + s(Architecture, bs="re"), data=df2, discrete=T)
+wi1a <- bam(log_Winogrande_sc1~ s(log_ARC_sc1)+ s(log_HellaSwag_sc1)+s(log_MMLU_sc1)+s(log_GSM8K_sc1)+s(log_TruthfulQA_sc1)+s(log_Param) + s(Architecture, bs="re"), data=df2, discrete=T)
+gs1a <- bam(log_GSM8K_sc1~ s(log_ARC)+ s(log_HellaSwag_sc1)+s(log_MMLU_sc1)+s(log_Winogrande_sc1)+s(log_TruthfulQA_sc1)+s(log_Param) + s(Architecture, bs="re"), data=df2, discrete=T)
+
+tq1a <- bam(log_TruthfulQA_sc1~ s(log_ARC_sc1)+ s(log_HellaSwag_sc1)+s(log_MMLU_sc1)+s(log_Winogrande_sc1)+s(log_GSM8K_sc1)+s(log_Param) + s(Architecture, bs="re"), data=df2, discrete=T)
+
+
+##plot
+
+
+plot_with_annotation <- function(model, select, p_value, xlab, ylab) {
+  # Plot the model with the given selection
+  plot(model, select=select, rug=T, xlab=xlab, ylab=ylab, lwd=1.2, shade=T, shade.col = "steelblue2", font.lab=2)
+  abline(h=0, col="indianred")
+  
+  # Calculate middle top position for the p-value text
+  x_mid <- mean(par("usr")[1:2])
+  y_top <- par("usr")[4] - (par("usr")[4] - par("usr")[3]) * 0.05  # Slightly below the top
+  
+  # Add p-value text in green color with consistent formatting
+ # formatted_p_value <- sprintf("%.4f", p_value)  # Format to 4 decimal places
+  text(x_mid, y_top, labels = paste("p-value:", p_value), cex = 1.2, col = "red")
+}
+
+
+
+setEPS()
+postscript("cor_eff_scaled_all.V1.eps", wi=15, he=21)
+par(mfrow=c(6,5), cex=0.8)
+
+# Assuming you have an array or list of p-values corresponding to each plot
+p_values <- c(0, 0, 0, 0.12, 0, 0, 0, 0, 0, 0.001, 0, 0, 0.02,0, 0, 0, 0, 0.2, 0, 0.004, 0, 0, 0, 0, 0.2, 0, 0, 0, 0, 0.7 )  # Example p-values
+
+# Call the function for each plot
+plot_with_annotation(ar1a, 1, p_values[1], "ARC (log_scaled)", "HellaSwag (log_scaled)(partial effects)")
+plot_with_annotation(ar1a, 2, p_values[2],  "ARC(log_scaled)", "MMLU (log_scaled)")
+plot_with_annotation(ar1a, 3, p_values[3],  "ARC (log_scaled)", "Winogrande (log_scaled)")
+plot_with_annotation(ar1a, 4, p_values[4],  "ARC (log_scaled)", "GSM8K (log_scaled)")
+plot_with_annotation(ar1a, 5, p_values[5],  "ARC (log_scaled)", "TruthfulQA (log_scaled)")
+
+# Call the function for each plot
+plot_with_annotation(he1a, 2, p_values[6], "HellaSwag (log_scaled)", "ARC (log_scaled)(partial effects)")
+plot_with_annotation(he1a, 3, p_values[7],  "HellaSwag (log_scaled)", "MMLU (log_scaled)")
+plot_with_annotation(he1a, 4, p_values[8],  "HellaSwag (log_scaled)", "Winogrande (log_scaled)")
+plot_with_annotation(he1a, 5, p_values[9],  "HellaSwag (log_scaled)", "GSM8K (log_scaled)")
+plot_with_annotation(he1a, 6, p_values[10],  "HellaSwag (log_scaled)", "TruthfulQA (log_scaled)")
+# ... continue for all plots
+plot_with_annotation(mu1a, 2, p_values[11], "MMLU (log_scaled)", "ARC (log_scaled)(partial effects)")
+plot_with_annotation(mu1a, 3, p_values[12], "MMLU (log_scaled)", "HellaSwag (log_scaled)")
+plot_with_annotation(mu1a, 4, p_values[13], "MMLU (log_scaled)", "Winogrande (log_scaled)")
+plot_with_annotation(mu1a, 5, p_values[14], "MMLU (log_scaled)", "GSM8K (log_scaled)")
+plot_with_annotation(mu1a, 1, p_values[15], "MMLU (log_scaled)", "TruthfulQA (log_scaled)")
+
+# Call the function for each plot
+plot_with_annotation(wi1a, 1, p_values[16], "Winogrande (log_scaled)", "ARC (log_scaled)(partial effects)")
+plot_with_annotation(wi1a, 2, p_values[17],  "Winogrande (log_scaled)", "HellaSwag (log_scaled)")
+plot_with_annotation(wi1a, 3, p_values[18],  "Winogrande (log_scaled)", "MMLU (log_scaled)")
+plot_with_annotation(wi1a, 4, p_values[19],  "Winogrande (log_scaled)", "GSM8K (log_scaled)")
+plot_with_annotation(wi1a, 5, p_values[20],  "Winogrande (log_scaled)", "TruthfulQA (log_scaled)")
+
+# Call the function for each plot
+plot_with_annotation(gs1a, 1, p_values[21], "GSM8K (log_scaled)", "log_ARC(log_scaled)(partial effects)")
+plot_with_annotation(gs1a, 2, p_values[22],  "GSM8K (log_scaled)", "HellaSwag (log_scaled)")
+plot_with_annotation(gs1a, 3, p_values[23],  "GSM8K (log_scaled)", "log_MMLU (log_scaled)")
+plot_with_annotation(gs1a, 4, p_values[24],  "GSM8K (log_scaled)", "log_Winogrande (log_scaled)")
+plot_with_annotation(gs1a, 5, p_values[25],  "GSM8K (log_scaled)", "log_TruthfulQA (log_scaled)")
+##
+plot_with_annotation(tq1a, 1, p_values[26], "TruthfulQA (log_scaled)", "ARC (log_scaled)(partial effects)")
+plot_with_annotation(tq1a, 2, p_values[27], "TruthfulQA (log_scaled)", "HellaSwag (log_scaled)")
+plot_with_annotation(tq1a, 3, p_values[28], "TruthfulQA (log_scaled)", "MMLU (log_scaled)")
+plot_with_annotation(tq1a, 4, p_values[29], "TruthfulQA (log_scaled)", "Winogrande(log_scaled)")
+plot_with_annotation(tq1a, 5, p_values[30], "TruthfulQA (log_scaled)", "GSM8K(log_scaled)")
+
+dev.off()
+##
+
