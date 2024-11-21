@@ -1,12 +1,18 @@
 # About
 This project is to employ multifaceted stastsitical methods to reevaluate LLMs performance.
 
+## R code:
+   1) "anova.test.R" is used to do anova tests and Tukey tests;
+   2) "GAMMs_tests.R" for implementing GAMM tests;
+   3) "Plot_GAMMs. R" for plotting partial effects;
+   4) "tsne_cluster.R" for tsne testing and plots.
+      
 ## Cite:
 
 ```
 @article{sun2024comprehensive,
   title={Comprehensive Reassessment of Large-Scale Evaluation Outcomes in LLMs: A Multifaceted Statistical Approach},
-  author={Sun, Kun and Wang, Rong and Liu, Haitao and S{\o}gaard, Anders},
+  author={Sun, Kun and Wang, Rong and S{\o}gaard, Anders},
   journal={arXiv preprint arXiv:2403.15250},
   year={2024}
 }
